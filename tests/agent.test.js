@@ -90,7 +90,7 @@ test('POST /api/tinyfish/agent/stream relays SSE events (STARTED, STREAMING_URL,
 
   const mockEvents = [
     'event: STARTED\ndata: {"type":"STARTED","run_id":"run_abc123"}\n\n',
-    'event: STREAMING_URL\ndata: {"type":"STREAMING_URL","url":"https://streaming.tinyfish.ai/run_abc123"}\n\n',
+    'event: STREAMING_URL\ndata: {"type":"STREAMING_URL","url":"https://streaming.tinyfish.ai/run_abc123","streaming_url":"https://tf-run_abc123.fra0-tinyfish.unikraft.app/stream/0"}\n\n',
     'event: PROGRESS\ndata: {"type":"PROGRESS","message":"Navigating to categories"}\n\n',
     'event: HEARTBEAT\ndata: {"type":"HEARTBEAT"}\n\n',
     'event: COMPLETE\ndata: {"type":"COMPLETE","status":"COMPLETED","num_of_steps":5,"result":{"categories":["Electronics","Books"]}}\n\n',
@@ -136,6 +136,8 @@ test('POST /api/tinyfish/agent/stream relays SSE events (STARTED, STREAMING_URL,
     assert.match(text, /STARTED/)
     assert.match(text, /run_abc123/)
     assert.match(text, /STREAMING_URL/)
+    assert.match(text, /streaming_url/)
+    assert.match(text, /unikraft\.app/)
     assert.match(text, /PROGRESS/)
     assert.match(text, /HEARTBEAT/)
     assert.match(text, /COMPLETE/)
